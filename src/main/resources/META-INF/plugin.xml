@@ -1,0 +1,32 @@
+<idea-plugin>
+    <id>hsin.codepathcopy</id>
+    <name>Code Path Copy</name>
+    <vendor>hsin</vendor>
+
+    <description><![CDATA[
+    Copy selected code reference as @/abs/path/File.java#Lstart-Lend.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="CodePathCopy" displayType="BALLOON" />
+        <postStartupActivity implementation="hsin.codepathcopy.CodePathStartupActivity" />
+    </extensions>
+
+    <actions>
+        <action id="hsin.codepathcopy.CopyCodePathReferenceAction"
+                class="hsin.codepathcopy.CopyCodePathReferenceAction"
+                text="Copy Code Path Reference"
+                description="Copy selected code as @/abs/path/File.java#Lstart-Lend">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+        </action>
+        <action id="hsin.codepathcopy.SendCodePathReferenceToCodexAction"
+                class="hsin.codepathcopy.SendCodePathReferenceToCodexAction"
+                text="Send Code Path Reference to Codex"
+                description="Send selected code reference to Codex CLI">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+        </action>
+    </actions>
+</idea-plugin>
