@@ -11,7 +11,7 @@ repositories {
 }
 
 intellij {
-    version.set("2023.2")
+    version.set("2023.2.5")
     type.set("IC")
     plugins.set(listOf("terminal"))
 }
@@ -25,7 +25,7 @@ java {
 tasks {
     patchPluginXml {
         sinceBuild.set("232")
-        untilBuild.set("241.*")
+        untilBuild.set("253.*")  // 支持到 2025.3
     }
     named("instrumentCode") {
         enabled = false

@@ -8,20 +8,15 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.project.DumbAware;
 
 import java.awt.datatransfer.StringSelection;
 
-public class CopyCodePathReferenceAction extends AnAction {
+public class CopyCodePathReferenceAction extends AnAction implements DumbAware {
     @Override
     public void update(AnActionEvent e) {
-        Editor editor = e.getData(CommonDataKeys.EDITOR);
-        VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
-        boolean hasSelection = editor != null
-                && file != null
-                && editor.getSelectionModel().hasSelection();
-
-        e.getPresentation().setVisible(hasSelection);
-        e.getPresentation().setEnabled(hasSelection);
+        e.getPresentation().setVisible(true);
+        e.getPresentation().setEnabled(true);
     }
 
     @Override
