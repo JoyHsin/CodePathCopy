@@ -84,3 +84,6 @@ build/
 !gradle/wrapper/gradle-wrapper-shared.jar
 !gradle/wrapper/gradle-cli.jar
 !gradle/wrapper/gradle-files.jar
+
+# Local agent instructions
+AGENTS.md

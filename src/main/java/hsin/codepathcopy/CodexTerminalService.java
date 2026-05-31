@@ -16,7 +16,6 @@ import java.io.IOException;
 @Service(Service.Level.PROJECT)
 final class CodexTerminalService {
     private static final String TAB_NAME = "Codex";
-    private static final int STARTUP_DELAY_MS = 1500;
 
     private final Project project;
     private final Alarm alarm;
@@ -37,7 +36,7 @@ final class CodexTerminalService {
             if (!codexStarted) {
                 startCodex(terminalWidget);
                 codexStarted = true;
-                alarm.addRequest(() -> sendToWidget(terminalWidget, message), STARTUP_DELAY_MS);
+                alarm.addRequest(() -> sendToWidget(terminalWidget, message), startupDelayMs());
             } else {
                 sendToWidget(terminalWidget, message);
             }
@@ -61,7 +60,7 @@ final class CodexTerminalService {
         codexStarted = false;
         startCodex(terminalWidget);
         codexStarted = true;
-        alarm.addRequest(() -> sendToWidget(terminalWidget, message), STARTUP_DELAY_MS);
+        alarm.addRequest(() -> sendToWidget(terminalWidget, message), startupDelayMs());
     }
 
     private void showTerminalToolWindow() {
@@ -77,7 +76,7 @@ final class CodexTerminalService {
         alarm.addRequest(() -> {
             widget.executeWithTtyConnector(connector -> {
                 try {
-                    connector.write("codex\n");
+                    connector.write(CodePathSettings.getInstance(project).getCodexCommand() + "\n");
                 } catch (IOException ex) {
                     CodePathNotifier.info(project, "Failed to start Codex: " + ex.getMessage());
                 }
@@ -98,5 +97,9 @@ final class CodexTerminalService {
         } else {
             widget.writePlainMessage(message + "\n");
         }
+    }
+
+    private int startupDelayMs() {
+        return CodePathSettings.getInstance(project).getStartupDelayMs();
     }
 }

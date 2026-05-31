@@ -75,6 +75,12 @@ final class CodePathSelectionHintService implements SelectionListener {
     @Override
     public void selectionChanged(@NotNull SelectionEvent e) {
         Editor editor = e.getEditor();
+        if (!CodePathSettings.getInstance(project).isSelectionHintEnabled()) {
+            hide(editor);
+            clearPending(editor);
+            return;
+        }
+
         SelectionModel selectionModel = editor.getSelectionModel();
         TextRange newRange = e.getNewRange();
 
@@ -168,6 +174,12 @@ final class CodePathSelectionHintService implements SelectionListener {
         if (editor.isDisposed()) {
             return;
         }
+        if (!CodePathSettings.getInstance(project).isSelectionHintEnabled()) {
+            hide(editor);
+            clearPending(editor);
+            return;
+        }
+
         SelectionModel selectionModel = editor.getSelectionModel();
         if (!selectionModel.hasSelection()) {
             hide(editor);

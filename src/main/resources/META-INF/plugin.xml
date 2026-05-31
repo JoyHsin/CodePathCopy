@@ -1,11 +1,23 @@
 <idea-plugin>
     <id>hsin.codepathcopy</id>
     <name>Code Path Copy</name>
-    <vendor>hsin</vendor>
+    <vendor url="https://github.com/joyhsin/CodePathCopy">hsin</vendor>
 
     <description><![CDATA[
-    Copy selected code reference as @/abs/path/File.java#Lstart-Lend.
+    <p>Copy selected editor ranges as Codex-friendly file references, for example
+    <code>@/abs/path/File.java#L1-L10</code>.</p>
+    <p>Code Path Copy can copy the reference to the clipboard or send it directly
+    to a dedicated Codex CLI terminal tab.</p>
     ]]></description>
+
+    <change-notes><![CDATA[
+    <ul>
+        <li>Add configurable Codex command, startup delay, Desktop bundle ID, and selection hint toggle.</li>
+        <li>Only show editor actions when a file range is selected.</li>
+        <li>Add macOS Codex Desktop sending through clipboard and AppleScript paste automation.</li>
+        <li>Add open-source project documentation and CI workflow.</li>
+    </ul>
+    ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.terminal</depends>
@@ -13,6 +25,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup id="CodePathCopy" displayType="BALLOON" />
         <postStartupActivity implementation="hsin.codepathcopy.CodePathStartupActivity" />
+        <projectConfigurable instance="hsin.codepathcopy.CodePathSettingsConfigurable" />
     </extensions>
 
     <actions>
@@ -26,6 +39,12 @@
                 class="hsin.codepathcopy.SendCodePathReferenceToCodexAction"
                 text="Send Code Path Reference to Codex"
                 description="Send selected code reference to Codex CLI">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+        </action>
+        <action id="hsin.codepathcopy.SendCodePathReferenceToCodexDesktopAction"
+                class="hsin.codepathcopy.SendCodePathReferenceToCodexDesktopAction"
+                text="Send Code Path Reference to Codex Desktop"
+                description="Paste selected code reference into the macOS Codex desktop app">
             <add-to-group group-id="EditorPopupMenu" anchor="last" />
         </action>
     </actions>

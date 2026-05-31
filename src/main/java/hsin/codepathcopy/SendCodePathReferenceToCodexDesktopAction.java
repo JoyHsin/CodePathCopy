@@ -5,14 +5,11 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
-import com.intellij.openapi.ide.CopyPasteManager;
+import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.project.DumbAware;
 
-import java.awt.datatransfer.StringSelection;
-
-public class CopyCodePathReferenceAction extends AnAction implements DumbAware {
+public class SendCodePathReferenceToCodexDesktopAction extends AnAction implements DumbAware {
     @Override
     public void update(AnActionEvent e) {
         CodePathActionUtil.updateSelectionAction(e);
@@ -24,7 +21,7 @@ public class CopyCodePathReferenceAction extends AnAction implements DumbAware {
         Editor editor = e.getData(CommonDataKeys.EDITOR);
         VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
 
-        if (editor == null || file == null) {
+        if (project == null || editor == null || file == null) {
             CodePathNotifier.info(project, "No active editor or file.");
             return;
         }
@@ -36,8 +33,12 @@ public class CopyCodePathReferenceAction extends AnAction implements DumbAware {
         }
 
         String reference = CodePathReference.build(editor, selectionModel, file);
+        CodexDesktopService service = project.getService(CodexDesktopService.class);
+        if (service == null) {
+            CodePathNotifier.info(project, "Codex Desktop service not available.");
+            return;
+        }
 
-        CopyPasteManager.getInstance().setContents(new StringSelection(reference));
-        CodePathNotifier.info(project, "Copied: " + reference);
+        service.send(reference);
     }
 }

@@ -12,8 +12,7 @@ import com.intellij.openapi.project.DumbAware;
 public class SendCodePathReferenceToCodexAction extends AnAction implements DumbAware {
     @Override
     public void update(AnActionEvent e) {
-        e.getPresentation().setVisible(true);
-        e.getPresentation().setEnabled(true);
+        CodePathActionUtil.updateSelectionAction(e);
     }
 
     @Override
