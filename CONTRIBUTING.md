@@ -1,5 +1,7 @@
 # Contributing
 
+[简体中文](CONTRIBUTING.zh-CN.md)
+
 Thanks for taking a look at Code Path Copy.
 
 ## Local Setup

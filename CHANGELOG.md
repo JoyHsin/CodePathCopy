@@ -1,5 +1,7 @@
 # Changelog
 
+[简体中文](CHANGELOG.zh-CN.md)
+
 ## Unreleased
 
 - Add project settings for Codex command, startup delay, and quick-send selection hint.

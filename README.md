@@ -1,5 +1,7 @@
 # Code Path Copy
 
+English | [简体中文](README.zh-CN.md)
+
 Code Path Copy is an IntelliJ IDEA plugin that turns the code you selected in the editor into a Codex-friendly file reference:
 
 ```text
@@ -90,4 +92,4 @@ Issues and pull requests are welcome. Please run `./gradlew verifyPlugin` before
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. A Chinese reference translation is available at [LICENSE.zh-CN.md](LICENSE.zh-CN.md), while [LICENSE](LICENSE) remains the authoritative legal text.
